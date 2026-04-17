@@ -5,7 +5,7 @@ const tabs = [
   { path: '/history',  icon: 'sports_esports',   label: 'Parties'  },
   { path: '/tactics',  icon: 'psychology',       label: 'Tactique' },
   { path: '/chat',     icon: 'forum',            label: 'Chat'     },
-  { path: '/settings', icon: 'settings',         label: 'Réglages' },
+  { path: '/vision',   icon: 'grid_on',           label: 'Vision'   },
 ]
 
 export default function BottomNav() {
