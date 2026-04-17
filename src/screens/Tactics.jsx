@@ -3,10 +3,10 @@ import { useNavigate } from 'react-router-dom'
 import ChessBoard from '../components/ChessBoard'
 
 const categories = [
-  { icon: '🔗', name: 'Clouage',     count: 12, color: '#352518' },
-  { icon: '⚔️',  name: 'Fourchette', count: 9,  color: '#073002' },
-  { icon: '🛡️',  name: 'Élimination',count: 7,  color: '#4e453e' },
-  { icon: '♟',  name: 'CCT',        count: 15, color: '#564334' },
+  { icon: '🔗', name: 'Clouage',     count: 4,  color: '#352518', id: 'clouage'     },
+  { icon: '⚔️',  name: 'Fourchette', count: 4,  color: '#073002', id: 'fourchette'  },
+  { icon: '🛡️',  name: 'Élimination',count: 4,  color: '#4e453e', id: 'elimination' },
+  { icon: '♟',  name: 'CCT',        count: 4,  color: '#564334', id: 'cct'         },
 ]
 
 const puzzles = [
