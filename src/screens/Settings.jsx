@@ -15,6 +15,14 @@ export default function Settings() {
 
   // modals
   const [modal, setModal] = useState(null) // 'difficulty' | 'reminder' | 'theme'
+  const [profile, setProfile] = useState(null)
+
+  useEffect(() => {
+    fetch('https://api.chess.com/pub/player/tomhiver')
+      .then(r => r.json())
+      .then(data => setProfile(data))
+      .catch(() => {})
+  }, [])
 
   function toggle(key) { setToggles(prev => ({ ...prev, [key]: !prev[key] })) }
 
