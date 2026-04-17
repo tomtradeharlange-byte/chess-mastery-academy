@@ -18,6 +18,16 @@ const icons = {
 export default function Dashboard() {
   const navigate = useNavigate()
 
+  const watched = (() => {
+    try { return new Set(JSON.parse(localStorage.getItem('chess_videos_watched') || '[]')) }
+    catch { return new Set() }
+  })()
+  const videoWatched = watched.size
+  const videoPct = Math.round((videoWatched / TOTAL_VIDEOS) * 100)
+  const currentWeek = WEEKS.find(w =>
+    w.days.some(d => d.videos.some(v => !watched.has(v.id)))
+  )
+
   return (
     <div style={{ background: '#fff8f5', minHeight: '100dvh', paddingBottom: 96 }}>
       {/* Header */}
