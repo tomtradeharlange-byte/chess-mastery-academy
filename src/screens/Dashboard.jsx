@@ -37,9 +37,12 @@ export default function Dashboard() {
         className="sticky top-0 z-40 flex justify-between items-center px-5 py-4"
         style={{ background: 'rgba(250,242,239,0.95)', backdropFilter: 'blur(16px)' }}
       >
-        <h1 style={{ fontFamily: 'Newsreader, serif', fontStyle: 'italic', fontSize: 20, color: '#352518', margin: 0, fontWeight: 600 }}>
-          The Grandmaster's Atelier
-        </h1>
+        <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+          <img src="/knight.svg" alt="Knight" style={{ width: 32, height: 32 }} />
+          <h1 style={{ fontFamily: 'Newsreader, serif', fontStyle: 'italic', fontSize: 20, color: '#352518', margin: 0, fontWeight: 600 }}>
+            The Grandmaster's Atelier
+          </h1>
+        </div>
         <button
           onClick={() => navigate('/settings')}
           className="w-9 h-9 rounded-full flex items-center justify-center overflow-hidden transition-all active:scale-90"
