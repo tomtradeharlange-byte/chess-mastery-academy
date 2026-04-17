@@ -51,7 +51,7 @@ export default function Dashboard() {
         {/* Hero headline */}
         <div className="mb-6">
           <h2 style={{ fontFamily: 'Newsreader, serif', fontSize: 42, fontWeight: 500, color: '#352518', lineHeight: 1, margin: 0, letterSpacing: '-0.02em' }}>
-            L'<em>Atelier</em>
+            L'Atelier<br /><em>de Thomas</em>
           </h2>
           <p style={{ fontFamily: 'Newsreader, serif', fontStyle: 'italic', color: '#4e453e', fontSize: 14, marginTop: 8 }}>
             "Chess is the gymnasium of the mind."
