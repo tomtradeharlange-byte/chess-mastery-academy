@@ -14,11 +14,11 @@ export const LESSONS = {
     accuracy: '94.2%',
     boardPosition: 'sicilienne',
     moves: [
-      { num: 1, w: 'e4',   b: 'c5'   },
-      { num: 2, w: 'Cf3',  b: 'd6'   },
-      { num: 3, w: 'd4',   b: 'cxd4' },
-      { num: 4, w: 'Cxd4', b: 'Cf6'  },
-      { num: 5, w: 'Cc3',  b: 'a6'   },
+      { num: 1, w: 'e4',   b: 'c5',   comment: "Les Blancs occupent immédiatement le centre. Les Noirs répondent avec c5 — non pas pour imiter e5, mais pour contrôler d4 depuis le flanc sans symétrie, créant d'emblée un déséquilibre." },
+      { num: 2, w: 'Cf3',  b: 'd6',   comment: "Le cavalier développé en f3 attaque e5 et prépare d4. Les Noirs jouent d6 pour soutenir e5 le moment venu et préparer l'installation du cavalier en f6." },
+      { num: 3, w: 'd4',   b: 'cxd4', comment: "La rupture centrale clé : d4 ouvre le jeu au centre. Les Noirs capturent obligatoirement pour éliminer ce pion avant qu'il ne devienne trop fort. L'échange est inévitable." },
+      { num: 4, w: 'Cxd4', b: 'Cf6',  comment: "Le cavalier reprend en d4 — une case dominante au cœur du jeu. Le Cf6 des Noirs attaque simultanément e4 et développe une pièce avec tempo, mettant la pression sur le centre blanc." },
+      { num: 5, w: 'Cc3',  b: 'a6',   comment: "Le Cc3 protège e4. Le coup 5...a6 — le cœur du Najdorf — prévient Fb5+ et prépare b5 pour un contre-jeu immédiat sur l'aile dame. Ce fut le coup fétiche de Kasparov et Fischer." },
     ],
     content: [
       {
@@ -73,11 +73,11 @@ export const LESSONS = {
     accuracy: '91.0%',
     boardPosition: 'gambit_dame',
     moves: [
-      { num: 1, w: 'd4',  b: 'd5'  },
-      { num: 2, w: 'c4',  b: 'e6'  },
-      { num: 3, w: 'Cc3', b: 'Cf6' },
-      { num: 4, w: 'Fg5', b: 'Fe7' },
-      { num: 5, w: 'e3',  b: '0-0' },
+      { num: 1, w: 'd4',  b: 'd5',  comment: "Les Blancs contrôlent le centre avec d4. Les Noirs répondent symétriquement avec d5 — une lutte directe pour la case e4. La position est équilibrée et fermée, propice au jeu positionnel." },
+      { num: 2, w: 'c4',  b: 'e6',  comment: "L'offre du 'Gambit' — c4 attaque le pion d5. Mais ce n'est pas un vrai sacrifice : si les Noirs prennent, les Blancs récupèrent facilement. En jouant e6, les Noirs renforcent d5 et choisissent le Gambit Refusé." },
+      { num: 3, w: 'Cc3', b: 'Cf6', comment: "Développement naturel des deux cavaliers. Le Cc3 soutient e4 à venir et contrôle d5. Le Cf6 des Noirs développe et surveille e4, préparant une résistance solide au centre." },
+      { num: 4, w: 'Fg5', b: 'Fe7', comment: "Fg5 épingle le cavalier f6 contre la dame noire, affaiblissant le contrôle de e5. Les Noirs jouent Fe7, développement sobre qui brise l'épingle et prépare le roque. Une réponse solide et classique." },
+      { num: 5, w: 'e3',  b: '0-0', comment: "e3 consolide le centre blanc et libère le chemin pour le fou de f1. Les Noirs roquent pour mettre leur roi en sécurité — une priorité absolue avant tout plan actif. Les positions restent fermées et techniques." },
     ],
     content: [
       {
@@ -132,11 +132,11 @@ export const LESSONS = {
     accuracy: '89.5%',
     boardPosition: 'defense_francaise',
     moves: [
-      { num: 1, w: 'e4',  b: 'e6'  },
-      { num: 2, w: 'd4',  b: 'd5'  },
-      { num: 3, w: 'Cc3', b: 'Fb4' },
-      { num: 4, w: 'e5',  b: 'c5'  },
-      { num: 5, w: 'a3',  b: 'Fc3+'},
+      { num: 1, w: 'e4',  b: 'e6',  comment: "Les Blancs occupent le centre. Les Noirs jouent e6 — coup discret mais profond : il prépare d5 tout en gardant une structure compacte. Les Noirs cèdent temporairement l'espace pour une solidité à toute épreuve." },
+      { num: 2, w: 'd4',  b: 'd5',  comment: "Les Blancs établissent une puissante paire centrale e4-d4. Les Noirs contestent aussitôt avec d5, créant une tension qui définit la Française : qui contrôlera le centre ?" },
+      { num: 3, w: 'Cc3', b: 'Fb4', comment: "Le Cc3 soutient e4. Les Noirs jouent Fb4 — la Variante Winawer ! Ce fou épingle le cavalier défenseur de e4, menaçant de briser le centre blanc avec ...dxe4 ou ...c5. C'est la ligne la plus complexe et dynamique." },
+      { num: 4, w: 'e5',  b: 'c5',  comment: "e5 — les Blancs avancent et ferment le centre, gagnant de l'espace sur l'aile roi. Les Noirs répliquent avec c5, le contre-coup thématique : attaquer la base de la chaîne de pions d4-e5 avant qu'elle ne devienne étouffante." },
+      { num: 5, w: 'a3',  b: 'Fxc3+', comment: "a3 force la décision : les Noirs doivent capturer le cavalier ou retraiter le fou. En jouant Fxc3+, ils détruisent la paire de fous blanche mais permettent à White de créer une puissante paire de fous après bxc3." },
     ],
     content: [
       {
@@ -191,11 +191,11 @@ export const LESSONS = {
     accuracy: '98.4%',
     boardPosition: 'stafford',
     moves: [
-      { num: 1, w: 'e4',   b: 'e5'   },
-      { num: 2, w: 'Cf3',  b: 'Cf6'  },
-      { num: 3, w: 'Cxe5', b: 'd6'   },
-      { num: 4, w: 'Cf3',  b: 'Cxe4' },
-      { num: 5, w: 'd3',   b: '…'    },
+      { num: 1, w: 'e4',   b: 'e5',   comment: "Ouverture symétrique : les deux camps revendiquent le centre. Cette position est l'une des plus jouées de l'histoire. Les Noirs répondent coup pour coup, maintenant l'équilibre parfait." },
+      { num: 2, w: 'Cf3',  b: 'Cf6',  comment: "Cf3 développe et attaque e5. Les Noirs jouent Cf6 — la Défense de Petroff — contrant immédiatement en attaquant e4. C'est l'idée du Stafford : répliquer à chaque attaque par une contre-attaque." },
+      { num: 3, w: 'Cxe5', b: 'd6',   comment: "Les Blancs prennent le pion e5, attirés dans le piège. Les Noirs jouent d6, chassant le cavalier blanc. Attention : si les Blancs jouent Cxf7 ici, ils tombent dans un piège dévastateur !" },
+      { num: 4, w: 'Cf3',  b: 'Cxe4', comment: "Le cavalier recule sagement. Les Noirs récupèrent leur pion avec Cxe4 — et ici commence la magie : les Noirs ont une pièce centralisée, un développement rapide, et de nombreuses menaces tactiques latentes." },
+      { num: 5, w: 'd3',   b: '…',    comment: "d3 chasse le cavalier intrus en e4. C'est la réfutation correcte — les Blancs gardent un léger avantage. Mais les Noirs sont loin d'être passifs : Cf6, Fc5 et ...Cg4 restent des menaces redoutables." },
     ],
     content: [
       {
@@ -250,11 +250,11 @@ export const LESSONS = {
     accuracy: '87.3%',
     boardPosition: 'systeme_londres',
     moves: [
-      { num: 1, w: 'd4',  b: 'd5'   },
-      { num: 2, w: 'Cf3', b: 'Cf6'  },
-      { num: 3, w: 'Ff4', b: 'e6'   },
-      { num: 4, w: 'e3',  b: 'Fd6'  },
-      { num: 5, w: 'Fxd6',b: 'Dxd6' },
+      { num: 1, w: 'd4',  b: 'd5',   comment: "d4 — les Blancs contrôlent le centre avec leur pion dame. Les Noirs répondent d5, revendiquant leur part du centre. La tension entre ces deux pions définira toute la partie." },
+      { num: 2, w: 'Cf3', b: 'Cf6',  comment: "Cf3 développe, contrôle e5 et prépare le roque. Les Noirs développent leur cavalier en f6, attaquant e4 à venir. Les deux camps développent leurs meilleures pièces vers les cases centrales naturelles." },
+      { num: 3, w: 'Ff4', b: 'e6',   comment: "Le coup signature du Système de Londres ! Ff4 développe le fou AVANT de jouer e3, une priorité absolue dans ce système. Les Noirs répondent e6 — renforcant d5 et libérant le chemin pour le fou de case noire." },
+      { num: 4, w: 'e3',  b: 'Fd6',  comment: "e3 consolide le centre et prépare Fd3. Les Noirs jouent Fd6, développant avec une idée précise : échanger le fou de Londres en f4, qui est le moteur de tout le système blanc." },
+      { num: 5, w: 'Fxd6', b: 'Dxd6', comment: "Les Blancs échangent avant d'être contraints. Après Dxd6, les Noirs ont une dame active mais les cases noires sont légèrement affaiblies. Les Blancs continuent avec Fd3, 0-0 et préparent e4." },
     ],
     content: [
       {
@@ -309,11 +309,11 @@ export const LESSONS = {
     accuracy: '92.1%',
     boardPosition: 'finales_pions',
     moves: [
-      { num: 1, w: 'Rg5', b: 'Rf7' },
-      { num: 2, w: 'Rf5', b: 'Re7' },
-      { num: 3, w: 'Re5', b: 'Rd7' },
-      { num: 4, w: 'Rd5', b: 'Rc7' },
-      { num: 5, w: 'f5',  b: '…'   },
+      { num: 1, w: 'Rg5', b: 'Rf7', comment: "Le roi blanc se centralise vers le pion passé en f6 (hypothétique) — principe fondamental : dans les finales de pions, le roi est une pièce offensive ! Les Noirs opposent leur roi pour bloquer." },
+      { num: 2, w: 'Rf5', b: 'Re7', comment: "Le roi blanc avance agressivement. Re7 — les Noirs maintiennent l'opposition directe, le seul moyen de résister. Toute déviation permettrait au roi blanc de pénétrer décisivement." },
+      { num: 3, w: 'Re5', b: 'Rd7', comment: "Les Blancs continuent leur marche vers le centre. Les Noirs reculent — ils ont perdu l'opposition ! Re5 est une case d'infiltration clé qui donne au roi blanc accès à toute la 5e rangée." },
+      { num: 4, w: 'Rd5', b: 'Rc7', comment: "Le roi pénètre en d5, dominant le centre. Les Noirs ne peuvent plus garder l'opposition — leur roi est repoussé sur l'aile dame, loin du pion blanc. La position est déjà techniquement gagnée." },
+      { num: 5, w: 'f5',  b: '…',   comment: "Avec le roi parfaitement centralisé, les Blancs avancent enfin leur pion. f5 menace f6 suivi de f7-f8=D. Le roi noir est trop loin pour intervenir. La technique de centralisation royale a tout accompli." },
     ],
     content: [
       {
@@ -368,11 +368,11 @@ export const LESSONS = {
     accuracy: '96.8%',
     boardPosition: 'capablanca',
     moves: [
-      { num: 1, w: 'Cd5',  b: 'Cxd5' },
-      { num: 2, w: 'exd5', b: 'Cb8'  },
-      { num: 3, w: 'b4',   b: 'Fd7'  },
-      { num: 4, w: 'a4',   b: 'a6'   },
-      { num: 5, w: 'Tb3',  b: '…'    },
+      { num: 1, w: 'Cd5',  b: 'Cxd5', comment: "Capablanca sacrifie son cavalier actif pour un pion passé ! Ce sacrifice positionnel crée un pion passé en d5 — un avantage structurel à long terme. Les Noirs doivent accepter : refuser serait encore pire." },
+      { num: 2, w: 'exd5', b: 'Cb8',  comment: "La reprise avec le pion crée un puissant pion passé en d5. Le cavalier noir recule en b8 — retraite humiliante mais forcée pour se redéployer. Capablanca a simplifié la position à son avantage." },
+      { num: 3, w: 'b4',   b: 'Fd7',  comment: "b4 — expansion sur l'aile dame ! Les Blancs gagnent de l'espace, créant des faiblesses adverses. Le Fd7 des Noirs tente de bloquer l'avance de ces pions, mais la pression blanche est continue." },
+      { num: 4, w: 'a4',   b: 'a6',   comment: "a4 — la poussée continue, menaçant a5. Les Noirs jouent a6 pour ralentir l'avance blanche. Mais chaque coup noir est une réaction — Capablanca dicte le jeu, les Noirs ne font que résister." },
+      { num: 5, w: 'Tb3',  b: '…',    comment: "Coup prophylactique et polyvalent : la tour en b3 se prépare à pivoter vers la 3e rangée (Tc3 ou Td3) pour soutenir le pion passé. C'est l'art de Capablanca : aucun coup n'est anodin, chacun multiplie les options." },
     ],
     content: [
       {

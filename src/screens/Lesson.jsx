@@ -21,6 +21,7 @@ export default function Lesson() {
   const [exSelected, setExSelected]   = useState(null) // réponse choisie
   const [exAnswered, setExAnswered]   = useState(false) // a répondu ?
   const [exDone, setExDone]           = useState([])   // indices complétés
+  const [exFinished, setExFinished]   = useState(false) // série terminée
 
   const exercises = lesson.exercises || []
   const exercise  = exercises[exIndex]
@@ -45,6 +46,7 @@ export default function Lesson() {
     setExSelected(null)
     setExAnswered(false)
     setExDone([])
+    setExFinished(false)
   }
 
   const currentMove = lesson.moves[activeMove - 1]
@@ -204,21 +206,41 @@ export default function Lesson() {
                 <span style={{ flex: 1, fontSize: 10, fontWeight: 700, color: '#80756d', textTransform: 'uppercase', letterSpacing: '0.1em' }}>Noirs</span>
               </div>
               {lesson.moves.map(m => (
-                <button
-                  key={m.num}
-                  onClick={() => setActiveMove(m.num)}
-                  style={{
-                    width: '100%', display: 'flex', padding: '12px 16px',
-                    borderBottom: '1px solid rgba(210,196,187,0.2)',
-                    background: activeMove === m.num ? 'rgba(192,240,173,0.2)' : 'transparent',
-                    border: 'none', borderBottom: '1px solid rgba(210,196,187,0.2)',
-                    cursor: 'pointer', textAlign: 'left',
-                  }}
-                >
-                  <span style={{ width: 32, fontSize: 12, color: '#80756d' }}>{m.num}.</span>
-                  <span style={{ flex: 1, fontSize: 13, fontWeight: activeMove === m.num ? 700 : 400, color: '#352518', fontFamily: 'Newsreader, serif' }}>{m.w}</span>
-                  <span style={{ flex: 1, fontSize: 13, color: '#352518', fontFamily: 'Newsreader, serif' }}>{m.b}</span>
-                </button>
+                <div key={m.num}>
+                  <button
+                    onClick={() => setActiveMove(activeMove === m.num ? null : m.num)}
+                    style={{
+                      width: '100%', display: 'flex', alignItems: 'center', padding: '12px 16px',
+                      background: activeMove === m.num ? 'rgba(192,240,173,0.2)' : 'transparent',
+                      outline: 'none', borderTop: 'none', borderLeft: 'none', borderRight: 'none',
+                      borderBottom: activeMove === m.num && m.comment ? 'none' : '1px solid rgba(210,196,187,0.2)',
+                      cursor: 'pointer', textAlign: 'left',
+                    }}
+                  >
+                    <span style={{ width: 32, fontSize: 12, color: '#80756d', flexShrink: 0 }}>{m.num}.</span>
+                    <span style={{ flex: 1, fontSize: 13, fontWeight: activeMove === m.num ? 700 : 400, color: '#352518', fontFamily: 'Newsreader, serif' }}>{m.w}</span>
+                    <span style={{ flex: 1, fontSize: 13, color: '#352518', fontFamily: 'Newsreader, serif' }}>{m.b}</span>
+                    {m.comment && (
+                      <span className="material-symbols-outlined" style={{ fontSize: 14, color: activeMove === m.num ? '#073002' : '#c9c6bd', marginLeft: 4, flexShrink: 0, transition: 'color 0.2s' }}>
+                        {activeMove === m.num ? 'expand_less' : 'expand_more'}
+                      </span>
+                    )}
+                  </button>
+                  {activeMove === m.num && m.comment && (
+                    <div style={{
+                      padding: '10px 16px 14px 48px',
+                      background: 'rgba(192,240,173,0.12)',
+                      borderBottom: '1px solid rgba(210,196,187,0.2)',
+                    }}>
+                      <div style={{ display: 'flex', alignItems: 'flex-start', gap: 8 }}>
+                        <span className="material-symbols-outlined" style={{ fontSize: 14, color: '#073002', flexShrink: 0, marginTop: 2 }}>lightbulb</span>
+                        <p style={{ fontSize: 13, color: '#4e453e', margin: 0, lineHeight: 1.6, fontFamily: 'Newsreader, serif', fontStyle: 'italic' }}>
+                          {m.comment}
+                        </p>
+                      </div>
+                    </div>
+                  )}
+                </div>
               ))}
             </div>
             <button
@@ -235,7 +257,7 @@ export default function Lesson() {
           <div style={{ paddingBottom: 16 }}>
 
             {/* Tous complétés */}
-            {exDone.length === exercises.length && exercises.length > 0 ? (
+            {exFinished ? (
               <div>
                 <div style={{ background: 'rgba(192,240,173,0.2)', borderRadius: 14, padding: 20, textAlign: 'center', marginBottom: 16 }}>
                   <div style={{ fontSize: 48, marginBottom: 8 }}>🏆</div>
@@ -375,7 +397,7 @@ export default function Lesson() {
                     </button>
                   ) : (
                     <button
-                      onClick={() => setExDone(prev => prev.includes(exIndex) ? prev : [...prev, exIndex])}
+                      onClick={() => setExFinished(true)}
                       style={{ background: 'linear-gradient(135deg, #073002 0%, #204716 100%)', color: '#fff', border: 'none', cursor: 'pointer', borderRadius: 12, padding: '12px 0', width: '100%', fontSize: 11, fontWeight: 700, letterSpacing: '0.12em', textTransform: 'uppercase' }}
                     >
                       Terminer la Série ✓
