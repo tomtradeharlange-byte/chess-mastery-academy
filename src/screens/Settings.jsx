@@ -54,7 +54,9 @@ export default function Settings() {
           <div className="flex-1">
             <h3 style={{ fontFamily: 'Newsreader, serif', fontSize: 20, color: '#352518', margin: '0 0 2px', fontWeight: 600 }}>{profile?.name || 'TomHiver'}</h3>
             <p style={{ fontSize: 12, color: '#073002', margin: '0 0 4px', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.1em' }}>Candidat Maître</p>
-            <p style={{ fontSize: 12, color: '#80756d', margin: 0 }}>Elo 2140 · 42 leçons · 1 482 tactiques</p>
+            <p style={{ fontSize: 12, color: '#80756d', margin: 0 }}>
+              {profile ? `${profile.followers ?? 0} abonnés · chess.com` : 'Chargement…'}
+            </p>
           </div>
           <span className="material-symbols-outlined" style={{ color: '#d2c4bb', fontSize: 18 }}>chevron_right</span>
         </button>
