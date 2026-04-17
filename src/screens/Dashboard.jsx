@@ -28,6 +28,7 @@ export default function Dashboard() {
   const currentWeek = WEEKS.find(w =>
     w.days.some(d => d.videos.some(v => !watched.has(v.id)))
   )
+  const { stats, loading: statsLoading } = useChessStats('tomhiver')
 
   return (
     <div style={{ background: '#fff8f5', minHeight: '100dvh', paddingBottom: 96 }}>
