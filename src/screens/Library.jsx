@@ -7,42 +7,42 @@ const openings = [
   {
     id: 1, cat: 'Ouvertures', badge: 'Agressif', color: '#073002',
     title: 'La Défense Sicilienne', sub: 'La réponse la plus populaire à 1.e4, créant des positions asymétriques complexes.',
-    icon: '♛', moves: '1.e4 c5', path: '/lesson',
+    icon: '♛', moves: '1.e4 c5', path: '/lesson', lessonId: 'sicilienne',
   },
   {
     id: 2, cat: 'Ouvertures', badge: 'Positionnel', color: '#4e453e',
     title: 'Le Gambit de la Dame', sub: "L'une des ouvertures les plus prestigieuses — contrôle du centre.",
-    icon: '♕', moves: '1.d4 d5 2.c4', path: '/lesson',
+    icon: '♕', moves: '1.d4 d5 2.c4', path: '/lesson', lessonId: 'gambit_dame',
   },
   {
     id: 3, cat: 'Ouvertures', badge: 'Résilient', color: '#564334',
     title: 'La Défense Française', sub: 'Une structure solide pour les Noirs, favorisant le jeu de contre-attaque.',
-    icon: '♞', moves: '1.e4 e6', path: '/lesson',
+    icon: '♞', moves: '1.e4 e6', path: '/lesson', lessonId: 'defense_francaise',
   },
   {
     id: 4, cat: 'Ouvertures', badge: 'Dynamique', color: '#073002',
     title: 'Gambit Stafford', sub: 'Un sacrifice de pion psychologique — pièges pour les adversaires imprudents.',
-    icon: '♝', moves: '1.e4 e5 2.Cf3 Cf6', path: '/lesson',
+    icon: '♝', moves: '1.e4 e5 2.Cf3 Cf6', path: '/lesson', lessonId: 'stafford',
   },
   {
     id: 5, cat: 'Ouvertures', badge: 'Solide', color: '#4e453e',
     title: 'Système de Londres', sub: 'Développement fiable des pièces blanches, idéal pour un jeu calme.',
-    icon: '♗', moves: '1.d4 d5 2.Cf3 Cf6 3.Ff4', path: '/lesson',
+    icon: '♗', moves: '1.d4 d5 2.Cf3 Cf6 3.Ff4', path: '/lesson', lessonId: 'systeme_londres',
   },
   {
     id: 6, cat: 'Tactiques', badge: 'Intermédiaire', color: '#352518',
     title: 'Arsenal Tactique', sub: 'Clouage, fourchette, élimination du défenseur — les armes du maître.',
-    icon: '⚡', moves: '', path: '/tactics',
+    icon: '⚡', moves: '', path: '/tactics', lessonId: null,
   },
   {
     id: 7, cat: 'Fins de partie', badge: 'Fondamental', color: '#073002',
     title: 'Finales de Pions', sub: 'La règle du carré, opposition et triangulation.',
-    icon: '♙', moves: '', path: '/lesson',
+    icon: '♙', moves: '', path: '/lesson', lessonId: 'finales_pions',
   },
   {
     id: 8, cat: 'Grands Maîtres', badge: 'Classique', color: '#352518',
     title: "L'Art de Capablanca", sub: 'La simplicité dans la victoire — leçons du 3e champion du monde.',
-    icon: '♔', moves: '', path: '/lesson',
+    icon: '♔', moves: '', path: '/lesson', lessonId: 'capablanca',
   },
 ]
 
@@ -112,7 +112,7 @@ export default function Library() {
             style={{ borderBottom: i < filtered.length - 1 ? '1px solid rgba(210,196,187,0.25)' : 'none' }}
           >
             <button
-              onClick={() => navigate(o.path)}
+              onClick={() => navigate(o.path, o.lessonId ? { state: { lessonId: o.lessonId } } : undefined)}
               style={{
                 width: '100%', display: 'flex', alignItems: 'center', gap: 14,
                 padding: '18px 0',

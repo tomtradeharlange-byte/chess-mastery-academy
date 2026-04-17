@@ -1,31 +1,128 @@
-// Simplified decorative chess board component
-const INITIAL = [
-  ['♜','♞','♝','♛','♚','♝','♞','♜'],
-  ['♟','♟','♟','♟','♟','♟','♟','♟'],
-  ['','','','','','','',''],
-  ['','','','','','','',''],
-  ['','','','','♙','','',''],
-  ['','','','','','','',''],
-  ['♙','♙','♙','♙','','♙','♙','♙'],
-  ['♖','♘','♗','♕','♔','♗','♘','♖'],
-]
+// Positions représentatives pour chaque leçon
+const POSITIONS = {
+  initial: {
+    board: [
+      ['♜','♞','♝','♛','♚','♝','♞','♜'],
+      ['♟','♟','♟','♟','♟','♟','♟','♟'],
+      ['','','','','','','',''],
+      ['','','','','','','',''],
+      ['','','','','','','',''],
+      ['','','','','','','',''],
+      ['♙','♙','♙','♙','♙','♙','♙','♙'],
+      ['♖','♘','♗','♕','♔','♗','♘','♖'],
+    ],
+    highlights: new Set([]),
+  },
 
-// Stafford gambit position
-const STAFFORD = [
-  ['♜','','♝','♛','♚','♝','','♜'],
-  ['♟','♟','♟','♟','','♟','♟','♟'],
-  ['','','♞','','','♞','',''],
-  ['','','','','♟','','',''],
-  ['','','','','♙','','',''],
-  ['','','♘','','','♘','',''],
-  ['♙','♙','♙','♙','','♙','♙','♙'],
-  ['♖','','♗','♕','♔','♗','','♖'],
-]
+  // Défense Sicilienne — après 1.e4 c5 2.Cf3 d6 3.d4 cxd4 4.Cxd4 Cf6
+  sicilienne: {
+    board: [
+      ['♜','♞','♝','♛','♚','♝','','♜'],
+      ['♟','♟','♟','','♟','♟','♟','♟'],
+      ['','','','♟','','♞','',''],
+      ['','','','','','','',''],
+      ['','','','♘','♙','','',''],
+      ['','','♘','','','','',''],
+      ['♙','♙','♙','','','♙','♙','♙'],
+      ['♖','','♗','♕','♔','♗','','♖'],
+    ],
+    highlights: new Set(['d4','e4','d6','f6']),
+  },
 
-const HIGHLIGHT_SQUARES = new Set(['f6', 'e5'])
+  // Gambit de la Dame — après 1.d4 d5 2.c4 e6 3.Cc3
+  gambit_dame: {
+    board: [
+      ['♜','♞','♝','♛','♚','♝','♞','♜'],
+      ['♟','♟','♟','','','♟','♟','♟'],
+      ['','','','','♟','','',''],
+      ['','','','♟','','','',''],
+      ['','','♙','♙','','','',''],
+      ['','','♘','','','','',''],
+      ['♙','♙','','','♙','♙','♙','♙'],
+      ['♖','','♗','♕','♔','♗','♘','♖'],
+    ],
+    highlights: new Set(['d4','c4','d5']),
+  },
+
+  // Défense Française — après 1.e4 e6 2.d4 d5 3.Cc3 Fb4
+  defense_francaise: {
+    board: [
+      ['♜','♞','♝','♛','♚','','♞','♜'],
+      ['♟','♟','♟','','','♟','♟','♟'],
+      ['','','','','♟','','',''],
+      ['','','','♟','','','',''],
+      ['','','','♙','♙','','',''],
+      ['','','♘','','','','',''],
+      ['♙','♙','♙','','','♙','♙','♙'],
+      ['♖','','♗','♕','♔','♗','♘','♖'],
+    ],
+    highlights: new Set(['e4','d4','d5','e6']),
+  },
+
+  // Gambit Stafford — après 1.e4 e5 2.Cf3 Cf6 3.Cxe5 d6 4.Cf3 Cxe4
+  stafford: {
+    board: [
+      ['♜','','♝','♛','♚','♝','','♜'],
+      ['♟','♟','♟','♟','','♟','♟','♟'],
+      ['','','♞','','','♞','',''],
+      ['','','','','♟','','',''],
+      ['','','','','♙','','',''],
+      ['','','♘','','','♘','',''],
+      ['♙','♙','♙','♙','','♙','♙','♙'],
+      ['♖','','♗','♕','♔','♗','','♖'],
+    ],
+    highlights: new Set(['f6','e5']),
+  },
+
+  // Système de Londres — après 1.d4 d5 2.Cf3 Cf6 3.Ff4 e6
+  systeme_londres: {
+    board: [
+      ['♜','♞','♝','♛','♚','♝','','♜'],
+      ['♟','♟','♟','','','♟','♟','♟'],
+      ['','','','','♟','♞','',''],
+      ['','','','♟','','','',''],
+      ['','','','♙','','','♗',''],
+      ['','','','','','♘','',''],
+      ['♙','♙','♙','','♙','♙','♙','♙'],
+      ['♖','♘','♗','♕','♔','','','♖'],
+    ],
+    highlights: new Set(['d4','f4','d5','f6']),
+  },
+
+  // Finale de pions — roi et pion blancs vs roi noir
+  finales_pions: {
+    board: [
+      ['','','','','','','',''],
+      ['','','','','','','',''],
+      ['','','','','','','',''],
+      ['','','','','','♚','',''],
+      ['','','','','','','',''],
+      ['','','','','','♙','',''],
+      ['','','','','','','',''],
+      ['','','','','','♔','',''],
+    ],
+    highlights: new Set(['f5','f6']),
+  },
+
+  // Capablanca — position de milieu de jeu classique
+  capablanca: {
+    board: [
+      ['♜','','','','♜','','♚',''],
+      ['♟','♟','','','','♟','♟','♟'],
+      ['','','♞','','','♞','',''],
+      ['','','♟','','','','',''],
+      ['','','♙','','','','',''],
+      ['','','♘','','♗','♘','',''],
+      ['♙','♙','','','','♙','♙','♙'],
+      ['♖','','','','♖','','♔',''],
+    ],
+    highlights: new Set(['c4','c5','d5']),
+  },
+}
 
 export default function ChessBoard({ position = 'stafford', size = 280 }) {
-  const board = position === 'stafford' ? STAFFORD : INITIAL
+  const pos = POSITIONS[position] || POSITIONS.stafford
+  const { board, highlights } = pos
   const squareSize = size / 8
 
   return (
@@ -34,9 +131,9 @@ export default function ChessBoard({ position = 'stafford', size = 280 }) {
         width: size,
         height: size,
         display: 'grid',
-        gridTemplateColumns: `repeat(8, 1fr)`,
-        gridTemplateRows: `repeat(8, 1fr)`,
-        borderRadius: '8px',
+        gridTemplateColumns: 'repeat(8, 1fr)',
+        gridTemplateRows: 'repeat(8, 1fr)',
+        borderRadius: 8,
         overflow: 'hidden',
         border: '10px solid #e8e1de',
         boxShadow: '0 8px 32px rgba(53,37,24,0.12)',
@@ -44,11 +141,11 @@ export default function ChessBoard({ position = 'stafford', size = 280 }) {
     >
       {board.map((row, ri) =>
         row.map((piece, ci) => {
-          const isLight = (ri + ci) % 2 === 0
-          const file = String.fromCharCode(97 + ci)
-          const rank = 8 - ri
-          const sq = `${file}${rank}`
-          const isHighlight = HIGHLIGHT_SQUARES.has(sq)
+          const isLight     = (ri + ci) % 2 === 0
+          const file        = String.fromCharCode(97 + ci)
+          const rank        = 8 - ri
+          const sq          = `${file}${rank}`
+          const isHighlight = highlights.has(sq)
 
           return (
             <div

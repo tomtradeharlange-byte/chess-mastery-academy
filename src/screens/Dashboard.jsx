@@ -1,10 +1,10 @@
 import { useNavigate } from 'react-router-dom'
 
 const lessons = [
-  { tag: "Ouverture",      title: "Défense Sicilienne",    sub: "Volume IV : Najdorf",    path: "/lesson"  },
-  { tag: "Fin de partie",  title: "Finales de Pions",      sub: "La Règle du Carré",      path: "/lesson"  },
-  { tag: "Grands Maîtres", title: "L'Art de Capablanca",   sub: "La Simplicité",          path: "/lesson"  },
-  { tag: "Tactiques",      title: "Le Regard de l'Aigle",  sub: "Maîtriser les Fourchettes", path: "/tactics" },
+  { tag: "Ouverture",      title: "Défense Sicilienne",    sub: "Volume IV : Najdorf",       path: "/lesson",  lessonId: "sicilienne"    },
+  { tag: "Fin de partie",  title: "Finales de Pions",      sub: "La Règle du Carré",         path: "/lesson",  lessonId: "finales_pions" },
+  { tag: "Grands Maîtres", title: "L'Art de Capablanca",   sub: "La Simplicité",             path: "/lesson",  lessonId: "capablanca"    },
+  { tag: "Tactiques",      title: "Le Regard de l'Aigle",  sub: "Maîtriser les Fourchettes", path: "/tactics", lessonId: null            },
 ]
 
 const icons = {
@@ -123,7 +123,7 @@ export default function Dashboard() {
                 key={l.title}
                 className="flex-shrink-0 text-left transition-all active:scale-95"
                 style={{ width: 140, background: 'none', border: 'none', padding: 0, cursor: 'pointer' }}
-                onClick={() => navigate(l.path)}
+                onClick={() => navigate(l.path, l.lessonId ? { state: { lessonId: l.lessonId } } : undefined)}
               >
                 <div
                   className="rounded-xl mb-2 flex items-center justify-center"
