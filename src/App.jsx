@@ -6,6 +6,7 @@ import Lesson from './screens/Lesson'
 import Tactics from './screens/Tactics'
 import Chat from './screens/Chat'
 import Settings from './screens/Settings'
+import VideoProgram from './screens/VideoProgram'
 
 export default function App() {
   return (
@@ -25,6 +26,7 @@ function AppContent() {
         <Route path="/tactics"  element={<Tactics />} />
         <Route path="/chat"     element={<Chat />} />
         <Route path="/settings" element={<Settings />} />
+        <Route path="/videos"   element={<VideoProgram />} />
       </Routes>
       <BottomNav />
     </>
