@@ -101,10 +101,10 @@ export default function Tactics() {
           {categories.map(c => (
             <button
               key={c.name}
-              onClick={() => setActiveCategory(activeCategory === c.name ? null : c.name)}
-              className="flex-shrink-0 rounded-xl px-3 py-2 flex items-center gap-2 transition-all"
+              onClick={() => navigate(`/tactics/${c.id}`)}
+              className="flex-shrink-0 rounded-xl px-3 py-2 flex items-center gap-2 transition-all active:scale-95"
               style={{
-                background: activeCategory === c.name ? '#352518' : '#faf2ef',
+                background: '#faf2ef',
                 border: 'none', cursor: 'pointer',
               }}
             >
