@@ -117,6 +117,33 @@ export default function Dashboard() {
           </div>
         </div>
 
+        {/* Programme Vidéo */}
+        <button
+          onClick={() => navigate('/videos')}
+          className="w-full rounded-xl p-5 mb-6 text-left transition-all active:scale-95"
+          style={{ background: '#352518', border: 'none', cursor: 'pointer' }}
+        >
+          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 12 }}>
+            <div>
+              <p style={{ fontSize: 9, fontWeight: 700, letterSpacing: '0.15em', textTransform: 'uppercase', color: 'rgba(192,240,173,0.8)', margin: 0 }}>Udemy · Kingscrusher</p>
+              <h3 style={{ fontFamily: 'Newsreader, serif', fontSize: 18, color: '#fff', margin: '2px 0 0', fontWeight: 600 }}>Programme Vidéo</h3>
+            </div>
+            <div style={{ textAlign: 'right' }}>
+              <p style={{ fontFamily: 'Newsreader, serif', fontSize: 28, color: '#c0f0ad', margin: 0, fontWeight: 600, lineHeight: 1 }}>{videoPct}%</p>
+              <p style={{ fontSize: 9, color: 'rgba(255,255,255,0.5)', margin: 0, textTransform: 'uppercase', letterSpacing: '0.1em' }}>{videoWatched}/{TOTAL_VIDEOS} vues</p>
+            </div>
+          </div>
+          <div style={{ height: 2, background: 'rgba(255,255,255,0.15)', borderRadius: 99, position: 'relative', marginBottom: 10 }}>
+            <div style={{ position: 'absolute', top: -1, left: 0, height: 4, width: `${videoPct}%`, background: '#c0f0ad', borderRadius: 99, transition: 'width 0.4s' }} />
+          </div>
+          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+            <p style={{ fontSize: 12, color: 'rgba(255,255,255,0.6)', margin: 0, fontFamily: 'Newsreader, serif', fontStyle: 'italic' }}>
+              {currentWeek ? `Semaine ${currentWeek.id} · ${currentWeek.title}` : '🏆 Programme complété !'}
+            </p>
+            <span className="material-symbols-outlined" style={{ color: 'rgba(255,255,255,0.4)', fontSize: 16 }}>arrow_forward_ios</span>
+          </div>
+        </button>
+
         {/* Lessons in progress */}
         <div className="mb-2">
           <div className="flex justify-between items-end mb-4">
