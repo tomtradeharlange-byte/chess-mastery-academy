@@ -9,14 +9,43 @@ export default function Lesson() {
   const navigate  = useNavigate()
   const location  = useLocation()
 
-  // La leçon est passée via router state : navigate('/lesson', { state: { lessonId: 'sicilienne' } })
-  // Fallback sur stafford si on arrive sans state
   const lessonId  = location.state?.lessonId || 'stafford'
   const lesson    = LESSONS[lessonId] || LESSONS.stafford
 
-  const [activeTab, setActiveTab]   = useState(0)
-  const [activeMove, setActiveMove] = useState(1)
-  const [done, setDone]             = useState(false)
+  const [activeTab, setActiveTab]     = useState(0)
+  const [activeMove, setActiveMove]   = useState(1)
+  const [done, setDone]               = useState(false)
+
+  // État exercices
+  const [exIndex, setExIndex]         = useState(0)   // exercice courant
+  const [exSelected, setExSelected]   = useState(null) // réponse choisie
+  const [exAnswered, setExAnswered]   = useState(false) // a répondu ?
+  const [exDone, setExDone]           = useState([])   // indices complétés
+
+  const exercises = lesson.exercises || []
+  const exercise  = exercises[exIndex]
+
+  function handleAnswer(opt) {
+    if (exAnswered) return
+    setExSelected(opt)
+    setExAnswered(true)
+    if (!exDone.includes(exIndex)) setExDone(prev => [...prev, exIndex])
+  }
+
+  function nextExercise() {
+    if (exIndex < exercises.length - 1) {
+      setExIndex(i => i + 1)
+      setExSelected(null)
+      setExAnswered(false)
+    }
+  }
+
+  function restartExercises() {
+    setExIndex(0)
+    setExSelected(null)
+    setExAnswered(false)
+    setExDone([])
+  }
 
   const currentMove = lesson.moves[activeMove - 1]
   function goTo(n) { setActiveMove(Math.max(1, Math.min(lesson.moves.length, n))) }
@@ -203,20 +232,162 @@ export default function Lesson() {
 
         {/* ── Exercices ── */}
         {activeTab === 2 && (
-          <div style={{ textAlign: 'center', padding: '32px 0' }}>
-            <div style={{ fontSize: 56, marginBottom: 16 }}>⚡</div>
-            <h4 style={{ fontFamily: 'Newsreader, serif', fontSize: 20, color: '#352518', margin: '0 0 8px', fontWeight: 600 }}>
-              3 Exercices disponibles
-            </h4>
-            <p style={{ fontSize: 13, color: '#4e453e', margin: '0 0 24px' }}>
-              Mettez en pratique les concepts de {lesson.title}
-            </p>
-            <button
-              onClick={() => navigate('/tactics')}
-              style={{ background: 'linear-gradient(135deg, #352518 0%, #4d3b2c 100%)', color: '#fff', border: 'none', cursor: 'pointer', borderRadius: 12, padding: '12px 32px', fontSize: 11, fontWeight: 700, letterSpacing: '0.12em', textTransform: 'uppercase' }}
-            >
-              Commencer les Exercices
-            </button>
+          <div style={{ paddingBottom: 16 }}>
+
+            {/* Tous complétés */}
+            {exDone.length === exercises.length && exercises.length > 0 ? (
+              <div>
+                <div style={{ background: 'rgba(192,240,173,0.2)', borderRadius: 14, padding: 20, textAlign: 'center', marginBottom: 16 }}>
+                  <div style={{ fontSize: 48, marginBottom: 8 }}>🏆</div>
+                  <h4 style={{ fontFamily: 'Newsreader, serif', fontSize: 20, color: '#073002', margin: '0 0 6px', fontWeight: 600 }}>
+                    Série complétée !
+                  </h4>
+                  <p style={{ fontSize: 13, color: '#4e453e', margin: '0 0 16px' }}>
+                    {exDone.length}/{exercises.length} exercices réussis sur <em>{lesson.title}</em>
+                  </p>
+                  <button
+                    onClick={restartExercises}
+                    style={{ background: 'linear-gradient(135deg, #352518 0%, #4d3b2c 100%)', color: '#fff', border: 'none', cursor: 'pointer', borderRadius: 12, padding: '10px 24px', fontSize: 11, fontWeight: 700, letterSpacing: '0.1em', textTransform: 'uppercase' }}
+                  >
+                    Recommencer
+                  </button>
+                </div>
+
+                {/* Récap des scores */}
+                {exercises.map((ex, i) => (
+                  <div key={ex.id} style={{ display: 'flex', alignItems: 'center', gap: 12, padding: '12px 0', borderBottom: i < exercises.length - 1 ? '1px solid rgba(210,196,187,0.2)' : 'none' }}>
+                    <div style={{ width: 32, height: 32, borderRadius: '50%', background: 'rgba(192,240,173,0.3)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
+                      <span className="material-symbols-outlined" style={{ fontSize: 18, color: '#073002' }}>check</span>
+                    </div>
+                    <div>
+                      <p style={{ fontSize: 13, fontWeight: 600, color: '#352518', margin: 0 }}>Exercice {i + 1}</p>
+                      <p style={{ fontSize: 11, color: '#80756d', margin: 0 }}>{ex.title}</p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            ) : exercise ? (
+              <div>
+                {/* Barre de progression */}
+                <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 16 }}>
+                  <div style={{ flex: 1, height: 2, background: 'rgba(210,196,187,0.35)', borderRadius: 99, position: 'relative' }}>
+                    <div style={{ position: 'absolute', top: -1, left: 0, height: 4, background: '#073002', borderRadius: 99, width: `${(exDone.length / exercises.length) * 100}%`, transition: 'width 0.4s' }} />
+                  </div>
+                  <span style={{ fontSize: 10, fontWeight: 700, color: '#073002', textTransform: 'uppercase', letterSpacing: '0.1em', flexShrink: 0 }}>
+                    {exIndex + 1}/{exercises.length}
+                  </span>
+                </div>
+
+                {/* Pastilles navigation exercices */}
+                <div style={{ display: 'flex', gap: 6, marginBottom: 16 }}>
+                  {exercises.map((_, i) => (
+                    <button
+                      key={i}
+                      onClick={() => { setExIndex(i); setExSelected(null); setExAnswered(false) }}
+                      style={{
+                        flex: 1, height: 4, borderRadius: 99, border: 'none', cursor: 'pointer',
+                        background: i === exIndex ? '#352518' : exDone.includes(i) ? '#073002' : '#d2c4bb',
+                        transition: 'background 0.2s',
+                      }}
+                    />
+                  ))}
+                </div>
+
+                {/* Carte exercice */}
+                <div style={{ background: '#faf2ef', borderRadius: 14, padding: 16, marginBottom: 14 }}>
+                  <p style={{ fontSize: 9, fontWeight: 700, letterSpacing: '0.15em', textTransform: 'uppercase', color: '#073002', margin: '0 0 4px' }}>
+                    Exercice {exIndex + 1} — {lesson.tag}
+                  </p>
+                  <h4 style={{ fontFamily: 'Newsreader, serif', fontSize: 18, color: '#352518', margin: '0 0 8px', fontWeight: 600 }}>
+                    {exercise.title}
+                  </h4>
+                  <p style={{ fontSize: 13, color: '#4e453e', margin: 0, lineHeight: 1.6, fontFamily: 'Newsreader, serif', fontStyle: 'italic' }}>
+                    {exercise.question}
+                  </p>
+                </div>
+
+                {/* Options de réponse */}
+                <div style={{ display: 'flex', flexDirection: 'column', gap: 8, marginBottom: 14 }}>
+                  {exercise.options.map((opt, i) => {
+                    const isCorrect  = opt === exercise.correct
+                    const isSelected = opt === exSelected
+                    let bg    = '#faf2ef'
+                    let color = '#352518'
+                    let border = '1px solid rgba(210,196,187,0.3)'
+                    if (exAnswered) {
+                      if (isCorrect)                   { bg = 'rgba(192,240,173,0.35)'; color = '#073002'; border = '1px solid rgba(7,48,2,0.25)' }
+                      else if (isSelected && !isCorrect) { bg = 'rgba(186,26,26,0.1)';  color = '#ba1a1a'; border = '1px solid rgba(186,26,26,0.25)' }
+                      else                             { color = '#80756d' }
+                    }
+                    return (
+                      <button
+                        key={i}
+                        onClick={() => handleAnswer(opt)}
+                        style={{
+                          background: bg, border, color,
+                          borderRadius: 12, padding: '12px 16px',
+                          display: 'flex', alignItems: 'center', gap: 12,
+                          cursor: exAnswered ? 'default' : 'pointer',
+                          textAlign: 'left', transition: 'all 0.2s',
+                        }}
+                      >
+                        <span style={{ width: 22, height: 22, borderRadius: '50%', background: exAnswered && isCorrect ? '#073002' : exAnswered && isSelected && !isCorrect ? '#ba1a1a' : '#eee7e3', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
+                          {exAnswered && isCorrect
+                            ? <span className="material-symbols-outlined" style={{ fontSize: 14, color: '#fff' }}>check</span>
+                            : exAnswered && isSelected && !isCorrect
+                            ? <span className="material-symbols-outlined" style={{ fontSize: 14, color: '#fff' }}>close</span>
+                            : <span style={{ fontSize: 11, fontWeight: 700, color: '#80756d' }}>{String.fromCharCode(65 + i)}</span>
+                          }
+                        </span>
+                        <span style={{ fontSize: 13, fontWeight: isSelected || (exAnswered && isCorrect) ? 600 : 400, lineHeight: 1.4 }}>
+                          {opt}
+                        </span>
+                      </button>
+                    )
+                  })}
+                </div>
+
+                {/* Explication après réponse */}
+                {exAnswered && (
+                  <div style={{ background: exSelected === exercise.correct ? 'rgba(192,240,173,0.2)' : 'rgba(186,26,26,0.06)', borderRadius: 14, padding: 14, marginBottom: 14 }}>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 6 }}>
+                      <span className="material-symbols-outlined" style={{ fontSize: 18, color: exSelected === exercise.correct ? '#073002' : '#ba1a1a' }}>
+                        {exSelected === exercise.correct ? 'check_circle' : 'info'}
+                      </span>
+                      <span style={{ fontWeight: 700, fontSize: 13, color: exSelected === exercise.correct ? '#073002' : '#ba1a1a' }}>
+                        {exSelected === exercise.correct ? 'Excellent ! +10 points' : 'Pas tout à fait…'}
+                      </span>
+                    </div>
+                    <p style={{ fontSize: 13, color: '#4e453e', margin: 0, fontFamily: 'Newsreader, serif', fontStyle: 'italic', lineHeight: 1.6 }}>
+                      {exercise.explanation}
+                    </p>
+                  </div>
+                )}
+
+                {/* Bouton suivant */}
+                {exAnswered && (
+                  exIndex < exercises.length - 1 ? (
+                    <button
+                      onClick={nextExercise}
+                      style={{ background: 'linear-gradient(135deg, #352518 0%, #4d3b2c 100%)', color: '#fff', border: 'none', cursor: 'pointer', borderRadius: 12, padding: '12px 0', width: '100%', fontSize: 11, fontWeight: 700, letterSpacing: '0.12em', textTransform: 'uppercase' }}
+                    >
+                      Exercice Suivant →
+                    </button>
+                  ) : (
+                    <button
+                      onClick={() => setExDone(prev => prev.includes(exIndex) ? prev : [...prev, exIndex])}
+                      style={{ background: 'linear-gradient(135deg, #073002 0%, #204716 100%)', color: '#fff', border: 'none', cursor: 'pointer', borderRadius: 12, padding: '12px 0', width: '100%', fontSize: 11, fontWeight: 700, letterSpacing: '0.12em', textTransform: 'uppercase' }}
+                    >
+                      Terminer la Série ✓
+                    </button>
+                  )
+                )}
+              </div>
+            ) : (
+              <p style={{ textAlign: 'center', color: '#80756d', padding: '32px 0', fontFamily: 'Newsreader, serif', fontStyle: 'italic' }}>
+                Aucun exercice disponible pour cette leçon.
+              </p>
+            )}
           </div>
         )}
       </div>
