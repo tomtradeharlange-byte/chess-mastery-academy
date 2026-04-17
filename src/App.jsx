@@ -8,6 +8,7 @@ import Chat from './screens/Chat'
 import Settings from './screens/Settings'
 import VideoProgram from './screens/VideoProgram'
 import TacticsCategory from './screens/TacticsCategory'
+import GameHistory from './screens/GameHistory'
 
 export default function App() {
   return (
