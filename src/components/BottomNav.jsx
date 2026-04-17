@@ -1,11 +1,11 @@
 import { useLocation, useNavigate } from 'react-router-dom'
 
 const tabs = [
-  { path: '/',         icon: 'dashboard',  label: 'Dashboard' },
-  { path: '/library',  icon: 'menu_book',  label: 'Library'   },
-  { path: '/tactics',  icon: 'psychology', label: 'Tactics'   },
-  { path: '/chat',     icon: 'forum',      label: 'Atelier'   },
-  { path: '/settings', icon: 'settings',   label: 'Settings'  },
+  { path: '/',         icon: 'dashboard',        label: 'Atelier'  },
+  { path: '/history',  icon: 'sports_esports',   label: 'Parties'  },
+  { path: '/tactics',  icon: 'psychology',       label: 'Tactique' },
+  { path: '/chat',     icon: 'forum',            label: 'Chat'     },
+  { path: '/settings', icon: 'settings',         label: 'Réglages' },
 ]
 
 export default function BottomNav() {
