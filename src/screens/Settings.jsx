@@ -45,11 +45,14 @@ export default function Settings() {
           className="w-full rounded-xl p-5 mb-6 flex items-center gap-4 text-left transition-all active:scale-98"
           style={{ background: '#faf2ef', border: 'none', cursor: 'pointer' }}
         >
-          <div className="w-16 h-16 rounded-full flex items-center justify-center flex-shrink-0" style={{ background: '#eee7e3', fontSize: 32 }}>
-            ♔
+          <div className="w-16 h-16 rounded-full flex-shrink-0 overflow-hidden" style={{ background: '#eee7e3' }}>
+            {profile?.avatar
+              ? <img src={profile.avatar} alt="avatar" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+              : <div style={{ width: '100%', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 32 }}>♔</div>
+            }
           </div>
           <div className="flex-1">
-            <h3 style={{ fontFamily: 'Newsreader, serif', fontSize: 20, color: '#352518', margin: '0 0 2px', fontWeight: 600 }}>Thomas Mangle</h3>
+            <h3 style={{ fontFamily: 'Newsreader, serif', fontSize: 20, color: '#352518', margin: '0 0 2px', fontWeight: 600 }}>{profile?.name || 'TomHiver'}</h3>
             <p style={{ fontSize: 12, color: '#073002', margin: '0 0 4px', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.1em' }}>Candidat Maître</p>
             <p style={{ fontSize: 12, color: '#80756d', margin: 0 }}>Elo 2140 · 42 leçons · 1 482 tactiques</p>
           </div>
