@@ -30,6 +30,7 @@ function AppContent() {
         <Route path="/settings" element={<Settings />} />
         <Route path="/videos"   element={<VideoProgram />} />
         <Route path="/tactics/:categoryId" element={<TacticsCategory />} />
+        <Route path="/history"  element={<GameHistory />} />
       </Routes>
       <BottomNav />
     </>
