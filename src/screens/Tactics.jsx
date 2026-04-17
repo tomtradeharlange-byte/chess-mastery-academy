@@ -110,8 +110,8 @@ export default function Tactics() {
             >
               <span style={{ fontSize: 16 }}>{c.icon}</span>
               <div>
-                <p style={{ fontSize: 9, fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.1em', color: activeCategory === c.name ? '#c0f0ad' : c.color, margin: 0 }}>{c.name}</p>
-                <p style={{ fontSize: 11, color: activeCategory === c.name ? 'rgba(255,255,255,0.7)' : '#80756d', margin: 0 }}>{c.count} puzzles</p>
+                <p style={{ fontSize: 9, fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.1em', color: c.color, margin: 0 }}>{c.name}</p>
+                <p style={{ fontSize: 11, color: '#80756d', margin: 0 }}>{c.count} puzzles</p>
               </div>
             </button>
           ))}
