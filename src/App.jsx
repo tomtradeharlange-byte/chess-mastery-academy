@@ -7,6 +7,7 @@ import Tactics from './screens/Tactics'
 import Chat from './screens/Chat'
 import Settings from './screens/Settings'
 import VideoProgram from './screens/VideoProgram'
+import TacticsCategory from './screens/TacticsCategory'
 
 export default function App() {
   return (
@@ -27,6 +28,7 @@ function AppContent() {
         <Route path="/chat"     element={<Chat />} />
         <Route path="/settings" element={<Settings />} />
         <Route path="/videos"   element={<VideoProgram />} />
+        <Route path="/tactics/:categoryId" element={<TacticsCategory />} />
       </Routes>
       <BottomNav />
     </>
