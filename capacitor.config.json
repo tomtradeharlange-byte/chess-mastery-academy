@@ -1,0 +1,22 @@
+{
+  "appId": "com.thomas.chessmastery",
+  "appName": "Chess Mastery",
+  "webDir": "dist",
+  "ios": {
+    "backgroundColor": "#fff8f5",
+    "contentInset": "always",
+    "scrollEnabled": true
+  },
+  "plugins": {
+    "StatusBar": {
+      "style": "Dark",
+      "backgroundColor": "#faf2ef",
+      "overlaysWebView": false
+    },
+    "SplashScreen": {
+      "launchShowDuration": 1000,
+      "backgroundColor": "#fff8f5",
+      "showSpinner": false
+    }
+  }
+}
