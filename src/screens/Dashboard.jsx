@@ -1,5 +1,6 @@
 import { useNavigate } from 'react-router-dom'
 import { WEEKS, TOTAL_VIDEOS } from '../data/videoProgram'
+import { useChessStats } from '../hooks/useChessStats'
 
 const lessons = [
   { tag: "Ouverture",      title: "Défense Sicilienne",    sub: "Volume IV : Najdorf",       path: "/lesson",  lessonId: "sicilienne"    },
