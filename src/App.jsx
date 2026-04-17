@@ -9,6 +9,7 @@ import Settings from './screens/Settings'
 import VideoProgram from './screens/VideoProgram'
 import TacticsCategory from './screens/TacticsCategory'
 import GameHistory from './screens/GameHistory'
+import CoordVision from './screens/CoordVision'
 
 export default function App() {
   return (
@@ -31,6 +32,7 @@ function AppContent() {
         <Route path="/videos"   element={<VideoProgram />} />
         <Route path="/tactics/:categoryId" element={<TacticsCategory />} />
         <Route path="/history"  element={<GameHistory />} />
+        <Route path="/vision"   element={<CoordVision />} />
       </Routes>
       <BottomNav />
     </>
