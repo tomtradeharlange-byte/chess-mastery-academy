@@ -94,29 +94,48 @@ export default function Dashboard() {
           <span className="material-symbols-outlined" style={{ color: '#80756d', fontSize: 18 }}>arrow_forward_ios</span>
         </button>
 
-        {/* Stats */}
+        {/* Stats Chess.com live */}
         <div className="rounded-xl p-5 mb-6" style={{ background: '#eee7e3' }}>
-          <h4 style={{ fontFamily: 'Newsreader, serif', fontSize: 18, color: '#352518', margin: '0 0 16px' }}>Statistiques</h4>
+          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 16 }}>
+            <h4 style={{ fontFamily: 'Newsreader, serif', fontSize: 18, color: '#352518', margin: 0 }}>Chess.com</h4>
+            <div style={{ display: 'flex', alignItems: 'center', gap: 5 }}>
+              <div style={{ width: 6, height: 6, borderRadius: '50%', background: statsLoading ? '#d2c4bb' : '#073002', animation: statsLoading ? 'none' : undefined }} />
+              <span style={{ fontSize: 9, fontWeight: 700, color: statsLoading ? '#80756d' : '#073002', textTransform: 'uppercase', letterSpacing: '0.1em' }}>
+                {statsLoading ? 'Chargement…' : 'En direct'}
+              </span>
+            </div>
+          </div>
           <div>
             {[
-              { label: 'Elo Classique',        value: '2 140' },
-              { label: 'Tactiques Résolues',   value: '1 482' },
-              { label: 'Leçons Complétées',    value: '42'    },
+              { label: 'Elo Rapide',     value: stats?.rapid   ?? '—', sub: stats ? `Meilleur : ${stats.bestRapid}` : '' },
+              { label: 'Elo Blitz',      value: stats?.blitz   ?? '—', sub: '' },
+              { label: 'Tactiques',      value: stats?.tactics ?? '—', sub: 'Record personnel' },
             ].map((s, i, arr) => (
               <div
                 key={s.label}
-                className="flex justify-between items-baseline"
-                style={{ borderBottom: i < arr.length - 1 ? '1px solid rgba(210,196,187,0.3)' : 'none', paddingBottom: 10, marginBottom: i < arr.length - 1 ? 10 : 0 }}
+                style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderBottom: i < arr.length - 1 ? '1px solid rgba(210,196,187,0.3)' : 'none', paddingBottom: 10, marginBottom: i < arr.length - 1 ? 10 : 0 }}
               >
-                <span style={{ fontSize: 13, color: '#5f5f57' }}>{s.label}</span>
-                <span style={{ fontFamily: 'Newsreader, serif', fontSize: 22, color: '#352518', fontWeight: 600 }}>{s.value}</span>
+                <div>
+                  <span style={{ fontSize: 13, color: '#5f5f57', display: 'block' }}>{s.label}</span>
+                  {s.sub ? <span style={{ fontSize: 10, color: '#80756d' }}>{s.sub}</span> : null}
+                </div>
+                <span style={{ fontFamily: 'Newsreader, serif', fontSize: 26, color: '#352518', fontWeight: 600 }}>
+                  {statsLoading ? '…' : s.value}
+                </span>
               </div>
             ))}
           </div>
-          <div className="flex items-center gap-2 mt-4" style={{ color: '#073002' }}>
-            <span className="material-symbols-outlined" style={{ fontSize: 18 }}>trending_up</span>
-            <span style={{ fontSize: 10, fontWeight: 700, letterSpacing: '0.12em', textTransform: 'uppercase' }}>+12 Elo cette semaine</span>
-          </div>
+          {stats && (
+            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginTop: 14 }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: 6, color: '#073002' }}>
+                <span className="material-symbols-outlined" style={{ fontSize: 16 }}>emoji_events</span>
+                <span style={{ fontSize: 10, fontWeight: 700, letterSpacing: '0.1em', textTransform: 'uppercase' }}>
+                  {stats.rapidWins}V · {stats.rapidLoss}D · {stats.rapidDraw}N
+                </span>
+              </div>
+              <span style={{ fontSize: 9, color: '#80756d', fontFamily: 'Newsreader, serif', fontStyle: 'italic' }}>Parties rapides</span>
+            </div>
+          )}
         </div>
 
         {/* Programme Vidéo */}
