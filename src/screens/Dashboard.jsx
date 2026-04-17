@@ -138,6 +138,22 @@ export default function Dashboard() {
           )}
         </div>
 
+        {/* Raccourci Mes Parties */}
+        <button
+          onClick={() => navigate('/history')}
+          className="w-full rounded-xl p-4 mb-6 flex items-center gap-4 text-left transition-all active:scale-98"
+          style={{ background: '#faf2ef', border: '1px solid rgba(210,196,187,0.2)', cursor: 'pointer' }}
+        >
+          <div className="rounded-xl flex items-center justify-center flex-shrink-0" style={{ width: 48, height: 48, background: '#eee7e3', fontSize: 26, lineHeight: 1 }}>
+            ♟
+          </div>
+          <div style={{ flex: 1 }}>
+            <p style={{ fontSize: 9, fontWeight: 700, letterSpacing: '0.15em', textTransform: 'uppercase', color: '#073002', margin: 0 }}>Chess.com · Lichess</p>
+            <p style={{ fontFamily: 'Newsreader, serif', fontSize: 16, color: '#352518', margin: '2px 0 0', fontWeight: 600 }}>Mes 25 dernières parties</p>
+          </div>
+          <span className="material-symbols-outlined" style={{ color: '#80756d', fontSize: 18 }}>arrow_forward_ios</span>
+        </button>
+
         {/* Programme Vidéo */}
         <button
           onClick={() => navigate('/videos')}
