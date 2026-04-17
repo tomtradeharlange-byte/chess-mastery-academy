@@ -41,7 +41,6 @@ export default function Chat() {
   useEffect(() => { endRef.current?.scrollIntoView({ behavior: 'smooth' }) }, [messages])
 
   function openConv(i) {
-    // mark as read
     setConversations(prev => prev.map((c, idx) => idx === i ? { ...c, unread: 0 } : c))
     setMessages(conversations[i].messages)
     setActiveConv(i)
@@ -78,36 +77,45 @@ export default function Chat() {
   if (activeConv !== null) {
     const conv = conversations[activeConv]
     return (
-      <div style={{ background: '#fff8f5', height: '100dvh', display: 'flex', flexDirection: 'column' }}>
-        <header
-          className="flex items-center gap-3 px-5 py-3 flex-shrink-0"
-          style={{ background: 'rgba(250,242,239,0.95)', backdropFilter: 'blur(16px)', borderBottom: '1px solid rgba(210,196,187,0.2)' }}
+      <div style={{ background: '#fff8f5', height: '100dvh', display: 'flex', flexDirection: 'column', paddingBottom: 64 }}>
+        {/* Header */}
+        <div
+          style={{
+            display: 'flex', alignItems: 'center', gap: 12,
+            padding: '12px 20px',
+            background: 'rgba(250,242,239,0.95)',
+            backdropFilter: 'blur(16px)',
+            borderBottom: '1px solid rgba(210,196,187,0.2)',
+            flexShrink: 0,
+          }}
         >
-          <button onClick={() => setActiveConv(null)} className="p-1">
+          <button onClick={() => setActiveConv(null)} style={{ background: 'none', border: 'none', cursor: 'pointer', padding: 4 }}>
             <span className="material-symbols-outlined" style={{ color: '#352518', fontSize: 22 }}>arrow_back</span>
           </button>
-          <div className="w-9 h-9 rounded-full flex items-center justify-center flex-shrink-0" style={{ background: '#eee7e3', fontSize: 20 }}>
+          <div style={{ width: 36, height: 36, borderRadius: '50%', background: '#eee7e3', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 20, flexShrink: 0 }}>
             {conv.avatar}
           </div>
-          <div className="flex-1">
+          <div style={{ flex: 1 }}>
             <p style={{ fontSize: 14, fontWeight: 700, color: '#352518', margin: 0 }}>{conv.name}</p>
             <p style={{ fontSize: 11, color: '#073002', margin: 0 }}>● En ligne</p>
           </div>
           <span className="material-symbols-outlined" style={{ color: '#80756d', fontSize: 20 }}>more_vert</span>
-        </header>
+        </div>
 
-        <div className="flex-1 overflow-y-auto px-4 py-4">
+        {/* Messages */}
+        <div style={{ flex: 1, overflowY: 'auto', padding: '16px' }}>
           {messages.length === 0 && (
             <p style={{ textAlign: 'center', fontFamily: 'Newsreader, serif', fontStyle: 'italic', color: '#d2c4bb', marginTop: 40, fontSize: 14 }}>
               Commencez la conversation…
             </p>
           )}
           {messages.map((m, i) => (
-            <div key={i} className={`flex mb-3 ${m.from === 'me' ? 'justify-end' : 'justify-start'}`}>
+            <div key={i} style={{ display: 'flex', justifyContent: m.from === 'me' ? 'flex-end' : 'flex-start', marginBottom: 10 }}>
               <div
-                className="rounded-xl px-4 py-3"
                 style={{
                   maxWidth: '78%',
+                  padding: '10px 14px',
+                  borderRadius: 14,
                   background: m.from === 'me'
                     ? 'linear-gradient(135deg, #352518 0%, #4d3b2c 100%)'
                     : '#faf2ef',
@@ -125,24 +133,38 @@ export default function Chat() {
           <div ref={endRef} />
         </div>
 
-        {/* Input bar — above bottom nav */}
+        {/* Input bar */}
         <div
-          className="flex items-center gap-3 px-4 py-3 flex-shrink-0"
-          style={{ background: 'rgba(255,248,245,0.97)', borderTop: '1px solid rgba(210,196,187,0.2)', paddingBottom: 100 }}
+          style={{
+            display: 'flex', alignItems: 'center', gap: 10,
+            padding: '10px 16px',
+            background: 'rgba(255,248,245,0.97)',
+            borderTop: '1px solid rgba(210,196,187,0.2)',
+            flexShrink: 0,
+          }}
         >
           <input
             value={input}
             onChange={e => setInput(e.target.value)}
             onKeyDown={e => e.key === 'Enter' && sendMessage()}
             placeholder="Votre message…"
-            className="flex-1 rounded-xl px-4 py-2.5 outline-none"
-            style={{ background: '#faf2ef', fontSize: 14, color: '#1e1b19', border: 'none' }}
+            style={{
+              flex: 1, borderRadius: 12, padding: '10px 16px',
+              background: '#faf2ef', fontSize: 14, color: '#1e1b19',
+              border: 'none', outline: 'none',
+            }}
             autoFocus
           />
           <button
             onClick={sendMessage}
-            className="w-10 h-10 rounded-full flex items-center justify-center flex-shrink-0 transition-all active:scale-90"
-            style={{ background: input.trim() ? '#352518' : '#d2c4bb', border: 'none', cursor: 'pointer' }}
+            style={{
+              width: 40, height: 40, borderRadius: '50%',
+              display: 'flex', alignItems: 'center', justifyContent: 'center',
+              background: input.trim() ? '#352518' : '#d2c4bb',
+              border: 'none', cursor: 'pointer',
+              transition: 'background 0.2s, transform 0.1s',
+              flexShrink: 0,
+            }}
           >
             <span className="material-symbols-outlined" style={{ color: '#fff', fontSize: 18 }}>send</span>
           </button>
@@ -153,43 +175,53 @@ export default function Chat() {
 
   // ── Conversation list ─────────────────────────────────────────────────────
   return (
-    <div style={{ background: '#fff8f5', minHeight: '100dvh', paddingBottom: 96 }}>
-      <header
-        className="sticky top-0 z-40 px-5 py-4"
-        style={{ background: 'rgba(250,242,239,0.95)', backdropFilter: 'blur(16px)' }}
+    <div style={{ background: '#fff8f5', minHeight: '100dvh', paddingBottom: 80 }}>
+      <div
+        style={{
+          position: 'sticky', top: 0, zIndex: 40,
+          padding: '16px 20px',
+          background: 'rgba(250,242,239,0.95)',
+          backdropFilter: 'blur(16px)',
+        }}
       >
-        <div className="flex items-center justify-between">
+        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
           <h1 style={{ fontFamily: 'Newsreader, serif', fontStyle: 'italic', fontSize: 22, color: '#352518', margin: 0, fontWeight: 600 }}>
             L'Atelier de Discussion
           </h1>
           <button
             onClick={() => setShowNew(true)}
-            className="w-9 h-9 rounded-xl flex items-center justify-center transition-all active:scale-90"
-            style={{ background: '#eee7e3', border: 'none', cursor: 'pointer' }}
+            style={{ width: 36, height: 36, borderRadius: 10, background: '#eee7e3', border: 'none', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center' }}
           >
             <span className="material-symbols-outlined" style={{ color: '#352518', fontSize: 18 }}>edit</span>
           </button>
         </div>
-      </header>
+      </div>
 
-      <div className="px-5 pt-4">
+      <div style={{ padding: '16px 20px 0' }}>
         <h2 style={{ fontFamily: 'Newsreader, serif', fontSize: 32, fontWeight: 500, color: '#352518', margin: '0 0 20px', fontStyle: 'italic', letterSpacing: '-0.01em' }}>
           Conversations
         </h2>
 
-        <div>
-          {conversations.map((conv, i) => (
+        {/* Conversation rows — wrapper div handles the separator, not the button */}
+        {conversations.map((conv, i) => (
+          <div
+            key={conv.id}
+            style={{ borderBottom: i < conversations.length - 1 ? '1px solid rgba(210,196,187,0.25)' : 'none' }}
+          >
             <button
-              key={conv.id}
-              className="w-full flex items-center gap-3 py-4 text-left transition-all active:bg-surface-container-low"
-              style={{ borderBottom: i < conversations.length - 1 ? '1px solid rgba(210,196,187,0.25)' : 'none', background: 'none', border_bottom: undefined, cursor: 'pointer', paddingLeft: 0, paddingRight: 0 }}
               onClick={() => openConv(i)}
+              style={{
+                width: '100%', display: 'flex', alignItems: 'center', gap: 12,
+                padding: '14px 0',
+                background: 'none', border: 'none', cursor: 'pointer',
+                textAlign: 'left',
+              }}
             >
-              <div className="w-12 h-12 rounded-full flex items-center justify-center flex-shrink-0" style={{ background: '#eee7e3', fontSize: 24 }}>
+              <div style={{ width: 46, height: 46, borderRadius: '50%', background: '#eee7e3', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 22, flexShrink: 0 }}>
                 {conv.avatar}
               </div>
-              <div className="flex-1 min-w-0">
-                <div className="flex items-center justify-between mb-0.5">
+              <div style={{ flex: 1, minWidth: 0 }}>
+                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 2 }}>
                   <p style={{ fontSize: 14, fontWeight: 700, color: '#352518', margin: 0 }}>{conv.name}</p>
                   <p style={{ fontSize: 11, color: '#80756d', margin: 0, flexShrink: 0 }}>{conv.time}</p>
                 </div>
@@ -198,30 +230,34 @@ export default function Chat() {
                 </p>
               </div>
               {conv.unread > 0 && (
-                <div className="w-5 h-5 rounded-full flex items-center justify-center flex-shrink-0" style={{ background: '#073002' }}>
+                <div style={{ width: 20, height: 20, borderRadius: '50%', background: '#073002', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
                   <span style={{ fontSize: 10, fontWeight: 700, color: '#fff' }}>{conv.unread}</span>
                 </div>
               )}
             </button>
-          ))}
-        </div>
+          </div>
+        ))}
 
-        {/* Nouvelle conversation CTA */}
+        {/* Nouvelle conversation */}
         {!showNew ? (
-          <div className="rounded-xl p-5 mt-5 text-center" style={{ background: '#faf2ef' }}>
+          <div style={{ borderRadius: 14, padding: 20, marginTop: 20, background: '#faf2ef', textAlign: 'center' }}>
             <p style={{ fontFamily: 'Newsreader, serif', fontStyle: 'italic', fontSize: 14, color: '#4e453e', margin: '0 0 12px' }}>
               "Discutez avec d'autres étudiants ou votre professeur"
             </p>
             <button
               onClick={() => setShowNew(true)}
-              className="px-6 py-2.5 rounded-xl transition-all active:scale-95"
-              style={{ background: 'linear-gradient(135deg, #352518 0%, #4d3b2c 100%)', color: '#fff', fontSize: 11, fontWeight: 700, letterSpacing: '0.12em', textTransform: 'uppercase', border: 'none', cursor: 'pointer' }}
+              style={{
+                padding: '10px 24px', borderRadius: 12,
+                background: 'linear-gradient(135deg, #352518 0%, #4d3b2c 100%)',
+                color: '#fff', fontSize: 11, fontWeight: 700, letterSpacing: '0.12em',
+                textTransform: 'uppercase', border: 'none', cursor: 'pointer',
+              }}
             >
               + Nouvelle Conversation
             </button>
           </div>
         ) : (
-          <div className="rounded-xl p-5 mt-5" style={{ background: '#faf2ef' }}>
+          <div style={{ borderRadius: 14, padding: 20, marginTop: 20, background: '#faf2ef' }}>
             <p style={{ fontSize: 12, fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.1em', color: '#352518', margin: '0 0 10px' }}>
               Nouvelle conversation
             </p>
@@ -230,22 +266,31 @@ export default function Chat() {
               onChange={e => setNewName(e.target.value)}
               onKeyDown={e => e.key === 'Enter' && createConversation()}
               placeholder="Nom du contact ou groupe…"
-              className="w-full rounded-xl px-4 py-3 outline-none mb-3"
-              style={{ background: '#eee7e3', fontSize: 14, color: '#1e1b19', border: 'none' }}
+              style={{
+                width: '100%', borderRadius: 12, padding: '12px 16px',
+                background: '#eee7e3', fontSize: 14, color: '#1e1b19',
+                border: 'none', outline: 'none', marginBottom: 12,
+                boxSizing: 'border-box',
+              }}
               autoFocus
             />
-            <div className="flex gap-2">
+            <div style={{ display: 'flex', gap: 8 }}>
               <button
                 onClick={() => { setShowNew(false); setNewName('') }}
-                className="flex-1 py-2.5 rounded-xl"
-                style={{ background: '#eee7e3', color: '#80756d', fontSize: 11, fontWeight: 700, letterSpacing: '0.1em', textTransform: 'uppercase', border: 'none', cursor: 'pointer' }}
+                style={{ flex: 1, padding: '10px', borderRadius: 12, background: '#eee7e3', color: '#80756d', fontSize: 11, fontWeight: 700, letterSpacing: '0.1em', textTransform: 'uppercase', border: 'none', cursor: 'pointer' }}
               >
                 Annuler
               </button>
               <button
                 onClick={createConversation}
-                className="flex-1 py-2.5 rounded-xl transition-all active:scale-95"
-                style={{ background: newName.trim() ? '#352518' : '#d2c4bb', color: '#fff', fontSize: 11, fontWeight: 700, letterSpacing: '0.1em', textTransform: 'uppercase', border: 'none', cursor: newName.trim() ? 'pointer' : 'default' }}
+                style={{
+                  flex: 1, padding: '10px', borderRadius: 12,
+                  background: newName.trim() ? '#352518' : '#d2c4bb',
+                  color: '#fff', fontSize: 11, fontWeight: 700, letterSpacing: '0.1em',
+                  textTransform: 'uppercase', border: 'none',
+                  cursor: newName.trim() ? 'pointer' : 'default',
+                  transition: 'background 0.2s',
+                }}
               >
                 Créer
               </button>

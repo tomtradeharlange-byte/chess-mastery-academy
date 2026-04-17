@@ -58,30 +58,32 @@ export default function Lesson() {
       </header>
 
       {/* Chess board */}
-      <div className="flex justify-center pt-5 pb-4 px-5">
-        <div style={{ position: 'relative' }}>
-          <ChessBoard position="stafford" size={340} />
-          {/* Floating evaluation */}
+      <div style={{ display: 'flex', justifyContent: 'center', padding: '20px 20px 16px', position: 'relative' }}>
+        <div style={{ position: 'relative', display: 'inline-block' }}>
+          <ChessBoard position="stafford" size={320} />
+          {/* Floating evaluation — inside the board bounds */}
           <div
-            className="absolute rounded-xl p-3"
             style={{
-              bottom: 12, right: -8,
-              background: 'rgba(255,248,245,0.88)',
+              position: 'absolute',
+              bottom: 10, right: 10,
+              background: 'rgba(255,248,245,0.90)',
               backdropFilter: 'blur(12px)',
-              border: '1px solid rgba(210,196,187,0.2)',
-              boxShadow: '0 4px 20px rgba(53,37,24,0.08)',
-              maxWidth: 130,
+              border: '1px solid rgba(210,196,187,0.25)',
+              boxShadow: '0 4px 20px rgba(53,37,24,0.10)',
+              borderRadius: 10,
+              padding: '8px 10px',
+              maxWidth: 120,
             }}
           >
-            <div className="flex items-center gap-1 mb-1.5">
+            <div style={{ display: 'flex', alignItems: 'center', gap: 4, marginBottom: 5 }}>
               <span className="material-symbols-outlined" style={{ color: '#073002', fontSize: 12 }}>flash_on</span>
-              <span style={{ fontSize: 9, fontWeight: 700, letterSpacing: '0.1em', textTransform: 'uppercase', color: '#352518' }}>Évaluation</span>
+              <span style={{ fontSize: 8, fontWeight: 700, letterSpacing: '0.1em', textTransform: 'uppercase', color: '#352518' }}>Évaluation</span>
             </div>
-            <div style={{ height: 3, background: 'rgba(210,196,187,0.3)', borderRadius: 99, marginBottom: 4 }}>
+            <div style={{ height: 3, background: 'rgba(210,196,187,0.35)', borderRadius: 99, marginBottom: 4 }}>
               <div style={{ height: 3, width: `${(activeMove / moves.length) * 100}%`, background: '#073002', borderRadius: 99, transition: 'width 0.3s' }} />
             </div>
-            <p style={{ fontSize: 10, color: '#4e453e', margin: 0 }}>
-              {activeMove < 3 ? 'Ouverture normale' : activeMove < 5 ? '+0.8 Avantage Blanc' : '+1.4 Piège Actif'}
+            <p style={{ fontSize: 9, color: '#4e453e', margin: 0 }}>
+              {activeMove < 3 ? 'Ouverture normale' : activeMove < 5 ? '+0.8 Avantage' : '+1.4 Piège Actif'}
             </p>
           </div>
         </div>

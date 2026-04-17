@@ -260,16 +260,26 @@ function Toggle({ on, onChange }) {
   return (
     <button
       onClick={onChange}
-      className="rounded-full flex items-center transition-all active:scale-90"
       style={{
-        width: 40, height: 22, padding: 2,
+        position: 'relative',
+        width: 40, height: 22,
+        borderRadius: 99,
         background: on ? '#073002' : '#d2c4bb',
-        justifyContent: on ? 'flex-end' : 'flex-start',
         border: 'none', cursor: 'pointer',
-        transition: 'background 0.2s, justify-content 0.2s',
+        transition: 'background 0.25s',
+        flexShrink: 0,
       }}
     >
-      <div style={{ width: 18, height: 18, borderRadius: '50%', background: '#fff', transition: 'transform 0.2s' }} />
+      <div style={{
+        position: 'absolute',
+        top: 2, left: 2,
+        width: 18, height: 18,
+        borderRadius: '50%',
+        background: '#fff',
+        transform: on ? 'translateX(18px)' : 'translateX(0)',
+        transition: 'transform 0.25s',
+        boxShadow: '0 1px 4px rgba(0,0,0,0.15)',
+      }} />
     </button>
   )
 }
